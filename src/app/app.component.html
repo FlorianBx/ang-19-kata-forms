@@ -4,12 +4,21 @@
     <form [formGroup]="mySuperForm" (ngSubmit)="mySuperFunctionSubmit()">
       <label for="name">Name</label>
       <input id="name" type="text" formControlName="name" />
+      @if (nameError()) {
+        <p style="color: red;">Name is required and must be at least 3 characters long</p>
+      }
 
       <label for="email">Email</label>
       <input id="email" type="email" formControlName="email" />
+      @if (emailError()) {
+        <small style="color: red;">Email is required and must be a valid email address</small>
+      }
 
       <label for="password">Password</label>
       <input id="password" type="password" formControlName="password" />
+      @if (!passwordMatche) {
+        <small style="color: red;">Passwords do not match</small>
+      }
 
       <label for="confirmPassword">Confirm Password</label>
       <input
@@ -17,8 +26,11 @@
         type="password"
         formControlName="confirmPassword"
       />
+      @if (!passwordMatche) {
+        <small style="color: red;">Passwords do not match</small>
+      }
 
-      <button type="submit">Submit</button>
+      <button [disabled]="!mySuperForm.valid">Submit</button>
     </form>
   </div>
 </section>
